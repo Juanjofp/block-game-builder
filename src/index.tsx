@@ -5,10 +5,10 @@ import Index from './framework/web';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Index />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Index />
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

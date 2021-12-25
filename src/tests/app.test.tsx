@@ -3,7 +3,8 @@ import { render, screen } from '@testing-library/react';
 import App from 'framework/web';
 
 test('renders learn react link', async () => {
-  render(<App />);
+    render(<App />);
 
-  expect(await screen.findByTestId('app-container')).toBeInTheDocument();
+    expect(await screen.findByTestId('app-container')).toBeInTheDocument();
+    await screen.findByText('Block Builder Game');
 });
