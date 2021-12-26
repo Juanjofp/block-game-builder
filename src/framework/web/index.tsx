@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { useI18next } from 'services/i18n/framework/i18next-service';
-import { useI18nService, I18nProvider } from 'services/i18n/framework';
-import { LogProvider, useLog } from '../../services/log/framework';
+import { I18nProvider } from 'services/i18n/framework';
+import { LogProvider } from '../../services/log/framework';
 import { loadProductionLog } from '../../services/log/framework/production-log-service';
-
+import { Routing } from 'services/routing/framework';
 import './styles.css';
 
 export function App() {
@@ -11,21 +12,11 @@ export function App() {
     return (
         <LogProvider logService={loadProductionLog()}>
             <I18nProvider service={i18nService}>
-                <MainPage />
+                <BrowserRouter>
+                    <Routing />
+                </BrowserRouter>
             </I18nProvider>
         </LogProvider>
-    );
-}
-
-export function MainPage() {
-    const { t } = useI18nService();
-    const { info } = useLog();
-
-    info('App init');
-    return (
-        <div className='App' data-testid={'app-container'}>
-            {t('app_title')}
-        </div>
     );
 }
 

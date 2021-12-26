@@ -6,15 +6,23 @@ import { buildConsoleLogService } from 'services/log/framework/console-log-servi
 jest.mock('services/log/framework/console-log-service');
 const fakeLogService = buildConsoleLogService as jest.Mock;
 
-test('renders App without crash', async () => {
-    const info = jest.fn();
-    fakeLogService.mockReturnValue({
-        info
-    });
-    render(<App />);
+describe('App should', () => {
+    it('renders App without crash', async () => {
+        const info = jest.fn();
+        fakeLogService.mockReturnValue({
+            info
+        });
+        render(<App />);
 
-    expect(await screen.findByTestId('app-container')).toBeInTheDocument();
-    await screen.findByText('Block Builder Game');
-    expect(info).toHaveBeenCalledTimes(1);
-    expect(info).toHaveBeenNthCalledWith(1, 'App init');
+        expect(await screen.findByTestId('app-container')).toBeInTheDocument();
+        await screen.findByText('Block Builder Game');
+        expect(info).toHaveBeenCalledTimes(1);
+        expect(info).toHaveBeenNthCalledWith(1, 'App init');
+    });
+
+    it('Render App in main section by default', async () => {
+        render(<App />);
+
+        await screen.findByTestId('main-container');
+    });
 });
