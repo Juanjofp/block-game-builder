@@ -1,7 +1,6 @@
 import { renderInsideApp, screen } from 'test-utils';
 import { Routing } from 'services/routing/framework';
 
-jest.mock('services/log/framework/console-log-service');
 describe('Routing service should', () => {
     it('Render Main Page when path is /', async () => {
         renderInsideApp(<Routing />);

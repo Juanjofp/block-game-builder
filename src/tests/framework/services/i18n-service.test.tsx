@@ -3,7 +3,7 @@ import { render, screen } from 'test-utils';
 import {
     I18nProvider,
     useI18nService,
-    Translate
+    Trans as Translate
 } from 'services/i18n/framework';
 import user from '@testing-library/user-event';
 import { useI18next, Trans } from 'services/i18n/framework/i18next-service';
@@ -16,9 +16,9 @@ function I18nView() {
                 {currentLanguage} - {navigator.language}
             </div>
             <div>{t('test_message')}</div>
-            <Translate i18nKey='test_description_message'>
+            <Trans i18nKey='test_description_message'>
                 Edit <code>My file</code> to get <b>powers</b>
-            </Translate>
+            </Trans>
         </>
     );
 }
@@ -31,9 +31,9 @@ function I18nViewES() {
                 {currentLanguage} - {navigator.language}
             </div>
             <div>{t('test_message')}</div>
-            <Translate i18nKey='test_description_message'>
+            <Trans i18nKey='test_description_message'>
                 Edit <code>My file</code> to get <b>powers</b>.
-            </Translate>
+            </Trans>
             <button onClick={() => changeLanguage('es-ES')}>Change</button>
         </>
     );
@@ -44,7 +44,11 @@ function renderI18nService(ui: React.ReactElement) {
         const i18nService = useI18next();
 
         return (
-            <I18nProvider service={i18nService} Translate={Trans} {...props} />
+            <I18nProvider
+                service={i18nService}
+                Translate={Translate}
+                {...props}
+            />
         );
     };
     return render(ui, { wrapper: Wrapper });

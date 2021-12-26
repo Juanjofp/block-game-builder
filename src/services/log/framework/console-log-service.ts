@@ -1,4 +1,4 @@
-import { LogService } from '../log-service';
+import { LogService } from 'services/log/log-service';
 
 function parseMessages(msg: string | {}) {
     return JSON.stringify(msg);

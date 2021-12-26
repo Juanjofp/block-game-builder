@@ -1,4 +1,4 @@
-import { loadProductionLog } from 'services/log/framework/production-log-service';
+import { loadProductionLog } from 'services/log/framework/load-log-service';
 
 describe('loadProductionLog should', () => {
     let spyLog: jest.SpyInstance;
@@ -14,12 +14,18 @@ describe('loadProductionLog should', () => {
         process.env.NODE_ENV = currentNodeEnv;
     });
 
-    it('load undefined when production', () => {
+    it('load fake log service when production', () => {
         // @ts-ignore
         process.env.NODE_ENV = 'production';
         const log = loadProductionLog();
 
-        expect(log).toBeUndefined();
+        log.info('print test message');
+        log.warn('print warn message');
+        log.error('print error message');
+
+        expect(log).not.toBeUndefined();
+        expect(log).not.toBeUndefined();
+        expect(spyLog).toHaveBeenCalledTimes(0);
     });
 
     it('load consoleLogService when test', () => {
@@ -27,14 +33,26 @@ describe('loadProductionLog should', () => {
         process.env.NODE_ENV = 'test';
         const log = loadProductionLog();
 
-        log?.info('print test message');
+        log.info('print test message');
+        log.warn('print warn message');
+        log.error('print error message');
 
         expect(log).not.toBeUndefined();
-        expect(spyLog).toHaveBeenCalledTimes(1);
+        expect(spyLog).toHaveBeenCalledTimes(3);
         expect(spyLog).toHaveBeenNthCalledWith(
             1,
             'INFO',
             '"print test message"'
+        );
+        expect(spyLog).toHaveBeenNthCalledWith(
+            2,
+            'WARNING',
+            '"print warn message"'
+        );
+        expect(spyLog).toHaveBeenNthCalledWith(
+            3,
+            'ERROR',
+            '"print error message"'
         );
     });
 });

@@ -1,7 +1,9 @@
-import { buildConsoleLogService } from './console-log-service';
+import { LogService } from 'services/log/log-service';
 
-export function loadProductionLog() {
-    return process.env.NODE_ENV === 'production'
-        ? undefined
-        : buildConsoleLogService();
+export function buildProductionService(): LogService {
+    return {
+        info: () => undefined,
+        warn: () => undefined,
+        error: () => undefined
+    };
 }

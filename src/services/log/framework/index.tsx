@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LogService } from '../log-service';
+import { LogService } from 'services/log/log-service';
 
 export const defaultLogService: LogService = {
     info: () => undefined,
@@ -10,12 +10,12 @@ export const defaultLogService: LogService = {
 const LogContext = React.createContext<LogService>(defaultLogService);
 
 export type LogProviderProps = {
-    logService?: LogService;
+    service?: LogService;
     children: React.ReactNode;
 };
-export function LogProvider({ logService, ...props }: LogProviderProps) {
-    const service = logService ?? defaultLogService;
-    return <LogContext.Provider value={service} {...props} />;
+export function LogProvider({ service, ...props }: LogProviderProps) {
+    const logService = service ?? defaultLogService;
+    return <LogContext.Provider value={logService} {...props} />;
 }
 
 export function useLog(): LogService {

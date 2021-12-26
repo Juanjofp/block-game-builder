@@ -40,7 +40,7 @@ describe('Log service should', () => {
     it('call console log with log, error and warn message when use with ConsoleLogService', () => {
         const consoleLogService = buildConsoleLogService();
         const TestComponent = () => (
-            <LogProvider logService={consoleLogService}>
+            <LogProvider service={consoleLogService}>
                 <ViewWithLog />
             </LogProvider>
         );

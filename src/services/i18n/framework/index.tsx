@@ -24,6 +24,6 @@ export const useI18nService = () => {
     return React.useContext(I18nContext);
 };
 
-export function Translate(props: Record<string, any>) {
+export function Trans(props: Record<string, any>) {
     return <TranslateComponent {...props} />;
 }
