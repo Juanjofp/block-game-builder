@@ -1,9 +1,9 @@
 {
-  "error_message": "An error was catch",
-  "error_button_text": "Restore",
-  "app_title": "Block Builder Game",
-  "main_page": "",
-  "section_one_page": "",
-  "test_message": "Test message!",
-  "test_description_message": "Edit <1>My file</1> to get <3>powers</3> now."
+    "error_message": "An error was catch",
+    "error_button_text": "Restore",
+    "app_title": "Block Builder Game",
+    "main_page": "",
+    "section_one_page": "",
+    "test_message": "Test message!",
+    "test_description_message": "Edit <1>My file</1> to get <3>powers</3> now."
 }
