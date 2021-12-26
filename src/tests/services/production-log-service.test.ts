@@ -2,12 +2,16 @@ import { loadProductionLog } from '../../services/log/framework/production-log-s
 
 describe('loadProductionLog should', () => {
     let spyLog: jest.SpyInstance;
+    let currentNodeEnv: string;
     beforeEach(() => {
+        currentNodeEnv = process.env.NODE_ENV;
         spyLog = jest.spyOn(console, 'log');
         spyLog.mockImplementation(() => {});
     });
     afterEach(() => {
         spyLog.mockRestore();
+        // @ts-ignore
+        process.env.NODE_ENV = currentNodeEnv;
     });
 
     it('load undefined when production', () => {
