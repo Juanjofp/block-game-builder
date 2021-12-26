@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react';
+import { render } from 'test-utils';
 import { LogProvider, useLog } from 'services/log/framework';
-import { buildConsoleLogService } from '../../services/log/framework/console-log-service';
+import { buildConsoleLogService } from 'services/log/framework/console-log-service';
 
 describe('Log service should', () => {
     function ViewWithLog() {

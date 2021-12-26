@@ -1,4 +1,4 @@
-import { loadProductionLog } from '../../services/log/framework/production-log-service';
+import { loadProductionLog } from 'services/log/framework/production-log-service';
 
 describe('loadProductionLog should', () => {
     let spyLog: jest.SpyInstance;
