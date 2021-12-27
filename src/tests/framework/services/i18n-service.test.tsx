@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { render, screen } from 'test-utils';
-import {
-    I18nProvider,
-    useI18nService,
-    Trans as Translate
-} from 'services/i18n/framework';
+import { I18nProvider, useI18nService, Trans } from 'services/i18n/framework';
 import user from '@testing-library/user-event';
-import { useI18next, Trans } from 'services/i18n/framework/i18next-service';
+import {
+    useI18next,
+    Trans as Translate
+} from 'services/i18n/framework/i18next-service';
 
 function I18nView() {
     const { t, currentLanguage } = useI18nService();
