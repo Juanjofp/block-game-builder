@@ -22,6 +22,11 @@ export const errorHandler =
     (error: Error, info: { componentStack: string }) => {
         logService.error(error.name, error.message, info.componentStack);
     };
-export const resetHandler = (logService: LogService) => (error: Error) => {
-    logService.info(error.name, error.message);
+export const resetHandler = (logService: LogService) => (error: any) => {
+    if (!!error && error instanceof Object) {
+        const name = 'name' in error ? error.name : 'Unknown error';
+        const message =
+            'message' in error ? error.message : JSON.stringify(error);
+        logService.info(name, message);
+    }
 };

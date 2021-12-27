@@ -15,7 +15,7 @@ describe('App should', () => {
         render(<App />);
 
         expect(await screen.findByTestId('app-container')).toBeInTheDocument();
-        await screen.findByText('Block Builder Game');
+        await screen.findByText('React Template');
         expect(info).toHaveBeenCalledTimes(1);
         expect(info).toHaveBeenNthCalledWith(1, 'App init');
     });
