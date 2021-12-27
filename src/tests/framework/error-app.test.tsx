@@ -17,13 +17,13 @@ describe('App should', () => {
             return <div>BoomView do not explode!</div>;
         }
 
-        const { fakeLogService } = renderInsideApp(
+        const { mockLogService } = renderInsideApp(
             <BoomView shouldFails={true} />
         );
 
         await screen.findByTestId('app-error-container');
-        expect(fakeLogService.error).toHaveBeenCalledTimes(1);
-        expect(fakeLogService.error).toHaveBeenNthCalledWith(
+        expect(mockLogService.error).toHaveBeenCalledTimes(1);
+        expect(mockLogService.error).toHaveBeenNthCalledWith(
             1,
             'Error',
             'BooM',
@@ -32,8 +32,8 @@ describe('App should', () => {
 
         user.click(await screen.findByTestId('app-error-reset-button'));
 
-        expect(fakeLogService.error).toHaveBeenCalledTimes(2);
-        expect(fakeLogService.info).toHaveBeenCalledTimes(1);
-        expect(fakeLogService.info).toHaveBeenNthCalledWith(1, 'Error', 'BooM');
+        expect(mockLogService.error).toHaveBeenCalledTimes(2);
+        expect(mockLogService.info).toHaveBeenCalledTimes(1);
+        expect(mockLogService.info).toHaveBeenNthCalledWith(1, 'Error', 'BooM');
     });
 });
