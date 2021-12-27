@@ -7,7 +7,7 @@ jest.mock('services/log/framework/console-log-service');
 const fakeLogService = buildConsoleLogService as jest.Mock;
 
 describe('App should', () => {
-    it('renders App without crash', async () => {
+    it('renders App without crash and call info', async () => {
         const info = jest.fn();
         fakeLogService.mockReturnValue({
             info

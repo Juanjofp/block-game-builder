@@ -39,22 +39,14 @@ export function AppDependencies({
     );
 }
 
-export type AppRouterProps = {
-    children: React.ReactNode;
-};
-
-export function AppRouter({ children }: AppRouterProps) {
-    return <BrowserRouter>{children}</BrowserRouter>;
-}
-
 export function App() {
     const i18nService = useI18next();
     const logService = loadProductionLog();
     return (
         <AppDependencies logService={logService} i18nService={i18nService}>
-            <AppRouter>
+            <BrowserRouter>
                 <Routing />
-            </AppRouter>
+            </BrowserRouter>
         </AppDependencies>
     );
 }
