@@ -28,5 +28,7 @@ export const resetHandler = (logService: LogService) => (error: any) => {
         const message =
             'message' in error ? error.message : JSON.stringify(error);
         logService.info(name, message);
+    } else {
+        logService.info('Unknown error', error);
     }
 };
