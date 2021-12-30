@@ -5,15 +5,26 @@ describe('Routing service should', () => {
     it('Render Main Page when path is /', async () => {
         renderInsideApp(<Routing />);
 
-        await screen.findByTestId('main-container');
+        await screen.findByTestId('main-page-container');
     });
 
-    it('Render in section one when path is /section-one', async () => {
+    it('Render in BuilderScenePage when path is /builder', async () => {
         renderInsideApp(<Routing />, {
             index: 1,
-            history: ['/', '/section-one']
+            history: ['/', '/builder']
         });
 
-        await screen.findByTestId('section-one-container');
+        await screen.findByTestId('builder-page-container');
+        await screen.findByTestId('builder-scene-page-container');
+    });
+
+    it('Render in BuilderPiecePage when path is /builder/piece', async () => {
+        renderInsideApp(<Routing />, {
+            index: 1,
+            history: ['/', '/builder/piece']
+        });
+
+        await screen.findByTestId('builder-page-container');
+        await screen.findByTestId('builder-piece-page-container');
     });
 });

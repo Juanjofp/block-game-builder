@@ -1,7 +1,7 @@
 import { LogService } from 'services/log/log-service';
 import { buildSentryLogService } from 'services/log/framework/sentry-log-service';
 
-describe('SentryLogService', () => {
+describe('SentryLogService should', () => {
     let service: LogService;
 
     beforeEach(() => {

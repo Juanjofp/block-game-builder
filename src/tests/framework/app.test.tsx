@@ -23,6 +23,6 @@ describe('App should', () => {
     it('Render App in main section by default', async () => {
         render(<App />);
 
-        await screen.findByTestId('main-container');
+        await screen.findByTestId('main-page-container');
     });
 });

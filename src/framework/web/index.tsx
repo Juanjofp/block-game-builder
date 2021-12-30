@@ -9,8 +9,8 @@ import { Routing } from 'services/routing/framework';
 import { AppError, errorHandler, resetHandler } from './app-error';
 
 import './styles.css';
-import { LogService } from '../../services/log/log-service';
-import { I18nService } from '../../services/i18n/i18n-service';
+import { LogService } from 'services/log/log-service';
+import { I18nService } from 'services/i18n/i18n-service';
 
 export type AppDependenciesProps = {
     children: React.ReactNode;
