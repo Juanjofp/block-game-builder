@@ -35,8 +35,8 @@ function BuilderTabNavigator() {
                     key={menu.key}
                     path={menu.path}
                     selected={menu.selected}
-                    title={t(`builder_page_tab_${menu.key}_item_text`)}
-                    dataTestId={`builder-page-tab-${menu.key}-item${
+                    title={t(`builder_${menu.key}_page_tab_item_title`)}
+                    dataTestId={`builder-${menu.key}-page-tab-item${
                         menu.selected ? '-selected' : ''
                     }`}
                 />

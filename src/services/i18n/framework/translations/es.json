@@ -1,9 +1,15 @@
 {
-    "error_message": "Se ha producido un error!",
-    "error_button_text": "Restaurar",
-    "app_title": "Game Blocks Builder",
-    "main_page": "Página principal",
-    "section_one_page": "",
-    "test_message": "(ES)Test message!",
-    "test_description_message": "(ES)Edit <1>My file</1> to get <3>powers</3> now."
+  "builder_page_title": "Constructor",
+  "builder_scene_page_title": "Escena",
+  "builder_character_page_title": "Personaje",
+  "builder_piece_page_title": "Pieza",
+  "builder_character_page_tab_item_title": "Escena",
+  "builder_scene_page_tab_item_title": "Personaje",
+  "builder_piece_page_tab_item_title": "Pieza",
+  "app_error_message": "",
+  "app_error_reset_button_text": "",
+  "app_title": "Game Blocks Builder",
+  "main_page": "Página principal",
+  "test_message": "(ES)Test message!",
+  "test_description_message": "(ES)Edit <1>My file</1> to get <3>powers</3> now."
 }
