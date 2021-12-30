@@ -1,15 +1,15 @@
 {
-  "builder_page_title": "Builder",
-  "builder_scene_page_title": "Scene",
-  "builder_character_page_title": "Character",
-  "builder_piece_page_title": "Piece",
-  "builder_character_page_tab_item_title": "Scene",
-  "builder_scene_page_tab_item_title": "Character",
-  "builder_piece_page_tab_item_title": "Piece",
-  "app_error_message": "",
-  "app_error_reset_button_text": "",
-  "app_title": "React Template",
-  "main_page": "",
-  "test_message": "Test message!",
-  "test_description_message": "Edit <1>My file</1> to get <3>powers</3> now."
+    "builder_page_title": "Builder",
+    "builder_scene_page_title": "Scene",
+    "builder_character_page_title": "Character",
+    "builder_piece_page_title": "Piece",
+    "builder_character_page_tab_item_title": "Scene",
+    "builder_scene_page_tab_item_title": "Character",
+    "builder_piece_page_tab_item_title": "Piece",
+    "app_error_message": "",
+    "app_error_reset_button_text": "",
+    "app_title": "React Template",
+    "main_page": "",
+    "test_message": "Test message!",
+    "test_description_message": "Edit <1>My file</1> to get <3>powers</3> now."
 }
