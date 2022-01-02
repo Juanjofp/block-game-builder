@@ -20,8 +20,8 @@ describe('Routing service should', () => {
 
     it('Render in Index when path is /builder/piece', async () => {
         renderInsideApp(<Routing />, {
-            index: 1,
-            history: ['/', '/builder/piece']
+            index: 2,
+            history: ['/', '/builder', '/builder/piece']
         });
 
         await screen.findByTestId('builder-page-container');
