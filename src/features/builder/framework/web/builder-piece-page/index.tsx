@@ -6,6 +6,7 @@ type ColorCellProps = {
     indexRow: number;
     indexColumn: number;
     color: string;
+    size: number;
 };
 
 function ColorCell({
@@ -13,45 +14,55 @@ function ColorCell({
     indexRow,
     indexColumn,
     onClick,
+    size,
     ...rest
 }: ColorCellProps) {
     return (
         <button
             className='color-cell'
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: color, height: size, width: size }}
             onClick={() => onClick(color, [indexRow, indexColumn])}
             {...rest}
-        >
-            {color}
-        </button>
+        />
     );
 }
 
-function PieceCanvas({
+function MatrixColorCell({
     onCellSelected,
-    colorScheme
+    colorScheme,
+    testId,
+    cellSize = 32
 }: {
     onCellSelected: (color: string, position: [number, number]) => void;
     colorScheme: string[][];
+    cellSize?: number;
+    testId?: string;
 }) {
     const rows = colorScheme.length;
     const columns = colorScheme[0].length;
 
     return (
-        <div data-testid={'builder-piece-canvas'}>
+        <div
+            data-testid={testId}
+            style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
+        >
             {Array.from({ length: rows }).map((_, indexRow) => (
                 <div
+                    style={{
+                        display: 'flex'
+                    }}
                     key={`canvas-row-${indexRow}`}
-                    data-testid={'builder-piece-canvas-row'}
+                    data-testid={`${testId}-row`}
                 >
                     {Array.from({ length: columns }).map((_, indexColumn) => (
                         <ColorCell
                             onClick={onCellSelected}
                             key={`canvas-cell-${indexRow}_${indexColumn}`}
-                            data-testid={`builder-piece-canvas-cell-${indexRow}-${indexColumn}`}
+                            data-testid={`${testId}-cell-${indexRow}-${indexColumn}`}
                             indexRow={indexRow}
                             indexColumn={indexColumn}
                             color={colorScheme[indexRow][indexColumn]}
+                            size={cellSize}
                         />
                     ))}
                 </div>
@@ -60,39 +71,16 @@ function PieceCanvas({
     );
 }
 
-function ColorPalette({
-    onColorSelected
-}: {
-    onColorSelected: (color: string | null) => void;
-}) {
-    return (
-        <div data-testid={'builder-piece-palette'}>
-            {Array.from({ length: 8 }).map((_, indexRow) => (
-                <div
-                    key={`palette-row-${indexRow}`}
-                    data-testid={'builder-piece-palette-row'}
-                >
-                    {Array.from({ length: 2 }).map((_, indexColumn) => (
-                        <ColorCell
-                            onClick={color => onColorSelected(color)}
-                            key={`palette-cell-${indexRow}_${indexColumn}`}
-                            data-testid={`builder-piece-palette-cell-${indexRow}-${indexColumn}`}
-                            indexRow={indexRow}
-                            indexColumn={indexColumn}
-                            color={`#${indexRow}${indexColumn}0`}
-                        />
-                    ))}
-                </div>
-            ))}
-        </div>
-    );
-}
-
-export function Index() {
+const paletteScheme = [
+    ['white', 'black', 'red', 'green', 'blue', 'yellow', 'transparent'],
+    ['purple', 'pink', 'cyan', 'brown', 'grey', 'orange', 'coral']
+];
+const canvasSize = 12;
+export function BuilderPiecePage() {
     const { t } = useI18nService();
     const [colorScheme, setColorScheme] = React.useState<string[][]>(
-        Array.from({ length: 8 }, () =>
-            Array.from({ length: 8 }, () => 'transparent')
+        Array.from({ length: canvasSize }, () =>
+            Array.from({ length: canvasSize }, () => 'transparent')
         )
     );
 
@@ -118,13 +106,29 @@ export function Index() {
     }
 
     return (
-        <div data-testid={'builder-piece-page-container'}>
+        <div
+            data-testid={'builder-piece-page-container'}
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                flex: 1,
+                alignItems: 'center',
+                padding: 12
+            }}
+        >
             <div>{t('builder_piece_page_title')}</div>
-            <PieceCanvas
+            <MatrixColorCell
+                testId={'builder-piece-canvas'}
                 colorScheme={colorScheme}
                 onCellSelected={updateCanvas}
             />
-            <ColorPalette onColorSelected={setSelectedColor} />
+            <hr />
+            <MatrixColorCell
+                testId={'builder-piece-palette'}
+                colorScheme={paletteScheme}
+                onCellSelected={setSelectedColor}
+                cellSize={32}
+            />
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { Index } from 'features/builder/framework/web/builder-piece-page';
+import { BuilderPiecePage } from 'features/builder/framework/web/builder-piece-page';
 import { renderInsideApp, screen, user } from 'test-utils';
 
 describe('Builder Piece Page should', () => {
@@ -10,7 +10,7 @@ describe('Builder Piece Page should', () => {
         await screen.findByTestId(testId);
         const canvasRow = await screen.findAllByTestId(`${testId}-row`);
 
-        expect(canvasRow).toHaveLength(8);
+        expect(canvasRow).toHaveLength(rows);
         const canvasCell = await screen.findAllByTestId(
             new RegExp(`${testId}-cell-\\d+-\\d+`)
         );
@@ -18,14 +18,14 @@ describe('Builder Piece Page should', () => {
     }
 
     it('render a default canvas and a colors palette', async () => {
-        renderInsideApp(<Index />);
+        renderInsideApp(<BuilderPiecePage />);
 
-        await expectedMatrix('builder-piece-canvas', 8, 8);
-        await expectedMatrix('builder-piece-palette', 8, 2);
+        await expectedMatrix('builder-piece-canvas', 12, 12);
+        await expectedMatrix('builder-piece-palette', 2, 7);
     });
 
     it('set transparent color when no color selected from palette', async () => {
-        renderInsideApp(<Index />);
+        renderInsideApp(<BuilderPiecePage />);
 
         const firstCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-0-0'
@@ -39,7 +39,7 @@ describe('Builder Piece Page should', () => {
     });
 
     it('set a color from palette to the canvas', async () => {
-        renderInsideApp(<Index />);
+        renderInsideApp(<BuilderPiecePage />);
 
         const firstColorButton = await screen.findByTestId(
             'builder-piece-palette-cell-0-0'
