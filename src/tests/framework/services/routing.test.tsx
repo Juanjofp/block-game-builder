@@ -18,7 +18,7 @@ describe('Routing service should', () => {
         await screen.findByTestId('builder-scene-page-container');
     });
 
-    it('Render in BuilderPiecePage when path is /builder/piece', async () => {
+    it('Render in Index when path is /builder/piece', async () => {
         renderInsideApp(<Routing />, {
             index: 1,
             history: ['/', '/builder/piece']
