@@ -2,8 +2,8 @@ import { useI18nService } from 'services/i18n/framework';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxRootState } from 'framework/store';
-import { selectColor } from './palette-reducer';
-import { updatePiece } from './piece-reducer';
+import { selectColor } from '../../reducers/palette';
+import { updatePiece } from '../../reducers/piece';
 import { BuilderPiecePage } from './builder-piece-page';
 
 function useBuilderPiece() {

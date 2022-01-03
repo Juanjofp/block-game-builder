@@ -1,10 +1,8 @@
 import { configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit';
-import paletteReducer from 'features/builder/framework/web/builder-piece-page/palette-reducer';
-import pieceReducer from 'features/builder/framework/web/builder-piece-page/piece-reducer';
+import * as builderReducers from 'features/builder/framework/reducers';
 
 const reducer = {
-    palette: paletteReducer,
-    piece: pieceReducer
+    ...builderReducers
 };
 
 export type ReduxRootState = StateFromReducersMapObject<typeof reducer>;

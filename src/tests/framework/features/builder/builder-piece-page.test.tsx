@@ -19,7 +19,7 @@ describe('Builder Piece Page should', () => {
 
     const paletteScheme = [
         ['white', 'black', 'red', 'green', 'blue', 'yellow', 'transparent'],
-        ['purple', 'pink', 'cyan', 'brown', 'grey', 'orange', 'coral']
+        ['purple', 'pink', 'cyan', 'brown', 'grey', 'orange', 'golden']
     ];
     const palette = {
         colors: paletteScheme,

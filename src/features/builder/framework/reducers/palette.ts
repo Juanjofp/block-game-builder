@@ -8,7 +8,7 @@ export type PaletteState = {
 
 const initialState: PaletteState = {
     colors: [
-        ['red', 'green', 'blue', 'blue', 'black'],
+        ['red', 'green', 'blue', 'brown', 'black'],
         ['yellow', 'orange', 'purple', 'white', 'transparent']
     ],
     selectedColor: 'transparent'
