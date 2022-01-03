@@ -51,7 +51,7 @@ describe('Builder Piece Page should', () => {
         );
     });
 
-    it.only('set a color from palette to the canvas', async () => {
+    it('set a color from palette to the canvas', async () => {
         renderInsideApp(<BuilderPiecePageContainer />, {
             initialState: { palette }
         });
