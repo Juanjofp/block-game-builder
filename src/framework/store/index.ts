@@ -1,17 +1,15 @@
-import {
-    configureStore,
-    StateFromReducersMapObject,
-    DeepPartial,
-    ReducersMapObject
-} from '@reduxjs/toolkit';
+import { configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit';
+import paletteReducer from 'features/builder/framework/web/builder-piece-page/palette-reducer';
+import pieceReducer from 'features/builder/framework/web/builder-piece-page/piece-reducer';
 
-const reducer: ReducersMapObject = {
-    test: (state: string = '') => state
+const reducer = {
+    palette: paletteReducer,
+    piece: pieceReducer
 };
 
 export type ReduxRootState = StateFromReducersMapObject<typeof reducer>;
 
-export function buildStore(preloadedState?: DeepPartial<ReduxRootState>) {
+export function buildStore(preloadedState?: Partial<ReduxRootState>) {
     return configureStore({
         reducer,
         preloadedState

@@ -5,7 +5,7 @@ import { useI18nService } from 'services/i18n/framework';
 import { useLog } from 'services/log/framework';
 import { BuilderLayoutPage } from 'features/builder/framework/web/builder-layout-page';
 import { BuilderScenePage } from 'features/builder/framework/web/builder-scene-page';
-import { BuilderPiecePage } from 'features/builder/framework/web/builder-piece-page';
+import { BuilderPiecePageContainer } from 'features/builder/framework/web/builder-piece-page';
 import { BuilderCharacterPage } from 'features/builder/framework/web/builder-character-page';
 import {
     BuilderPath,
@@ -36,7 +36,10 @@ export function Routing() {
                         path={CharacterPath}
                         element={<BuilderCharacterPage />}
                     />
-                    <Route path={PiecePath} element={<BuilderPiecePage />} />
+                    <Route
+                        path={PiecePath}
+                        element={<BuilderPiecePageContainer />}
+                    />
                 </Route>
             </Route>
         </Routes>

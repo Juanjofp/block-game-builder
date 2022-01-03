@@ -1,4 +1,4 @@
-import { BuilderPiecePage } from 'features/builder/framework/web/builder-piece-page';
+import { BuilderPiecePageContainer } from 'features/builder/framework/web/builder-piece-page';
 import { renderInsideApp, screen, user } from 'test-utils';
 
 describe('Builder Piece Page should', () => {
@@ -17,15 +17,28 @@ describe('Builder Piece Page should', () => {
         expect(canvasCell).toHaveLength(rows * columns);
     }
 
+    const paletteScheme = [
+        ['white', 'black', 'red', 'green', 'blue', 'yellow', 'transparent'],
+        ['purple', 'pink', 'cyan', 'brown', 'grey', 'orange', 'coral']
+    ];
+    const palette = {
+        colors: paletteScheme,
+        selectedColor: 'transparent'
+    };
+
     it('render a default canvas and a colors palette', async () => {
-        renderInsideApp(<BuilderPiecePage />);
+        renderInsideApp(<BuilderPiecePageContainer />, {
+            initialState: { palette }
+        });
 
         await expectedMatrix('builder-piece-canvas', 12, 12);
         await expectedMatrix('builder-piece-palette', 2, 7);
     });
 
     it('set transparent color when no color selected from palette', async () => {
-        renderInsideApp(<BuilderPiecePage />);
+        renderInsideApp(<BuilderPiecePageContainer />, {
+            initialState: { palette }
+        });
 
         const firstCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-0-0'
@@ -38,13 +51,16 @@ describe('Builder Piece Page should', () => {
         );
     });
 
-    it('set a color from palette to the canvas', async () => {
-        renderInsideApp(<BuilderPiecePage />);
+    it.only('set a color from palette to the canvas', async () => {
+        renderInsideApp(<BuilderPiecePageContainer />, {
+            initialState: { palette }
+        });
 
         const firstColorButton = await screen.findByTestId(
-            'builder-piece-palette-cell-0-0'
+            'builder-piece-palette-cell-0-5'
         );
         const backgroundColor = firstColorButton.style.backgroundColor;
+        user.click(firstColorButton);
 
         const firstCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-0-0'
@@ -52,8 +68,6 @@ describe('Builder Piece Page should', () => {
         const lastCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-7-7'
         );
-
-        user.click(firstColorButton);
         user.click(firstCanvasCellButton);
         user.click(lastCanvasCellButton);
 

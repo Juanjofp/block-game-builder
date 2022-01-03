@@ -7,7 +7,6 @@ import { FallbackProps } from 'react-error-boundary';
 import { AppError } from 'framework/web/app-error';
 import { LogService } from 'services/log/log-service';
 import { AppDependencies } from 'framework/web';
-import { DeepPartial } from '@reduxjs/toolkit';
 import { buildStore, ReduxRootState } from 'framework/store';
 
 type MockLogService = LogService & {
@@ -30,7 +29,7 @@ export function renderInsideApp(
         CustomError = AppError,
         ...rest
     }: {
-        initialState?: DeepPartial<ReduxRootState>;
+        initialState?: Partial<ReduxRootState>;
         index?: number;
         history?: string[];
         CustomError?: React.ComponentType<FallbackProps>;
