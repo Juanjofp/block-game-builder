@@ -12,7 +12,7 @@ describe('CanvasImageService', () => {
         toDataURL.mockClear();
     });
 
-    it('should thow an error if not 2d context', async () => {
+    it('should throw an error if not 2d context', async () => {
         const canvasImageService = buildCanvasImageService();
         const schema = [[]];
 

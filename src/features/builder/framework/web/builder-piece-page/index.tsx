@@ -9,6 +9,11 @@ import { buildCanvasImageService } from './canvas-image-service';
 import { ImageService } from '../../../image-service';
 
 function useController(imageService: ImageService) {
+    function thunkUpdateSelectedColorInPalette(position: [number, number]) {
+        return (dispatch: ReduxDispatch) => {
+            dispatch(selectColor(position));
+        };
+    }
     function thunkUpdatePieceColor(position: [number, number]) {
         return (dispatch: ReduxDispatch, getState: () => ReduxRootState) => {
             const selectedColor = getState().palette.selectedColor;
@@ -32,8 +37,9 @@ function useController(imageService: ImageService) {
     const palette = useSelector((state: ReduxRootState) => state.palette);
     const piece = useSelector((state: ReduxRootState) => state.piece);
     const dispatch = useDispatch();
+
     const onColorSelected = (color: string, position: [number, number]) => {
-        dispatch(selectColor(position));
+        dispatch(thunkUpdateSelectedColorInPalette(position));
     };
     const updatePieceSchema = (color: string, position: [number, number]) => {
         dispatch(thunkUpdatePieceColor(position));
