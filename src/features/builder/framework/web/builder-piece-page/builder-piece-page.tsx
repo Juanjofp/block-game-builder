@@ -4,22 +4,22 @@ import { MatrixColorCell } from './matrix-color-cell';
 export type BuilderPiecePageProps = {
     title: string;
     pieceSchema: string[][];
-    updatePieceSchema: (color: string, position: [number, number]) => void;
+    onClickPieceSchema: (color: string, position: [number, number]) => void;
     paletteSchema: string[][];
-    onColorSelected: (color: string, position: [number, number]) => void;
+    onClickPaletteSchema: (color: string, position: [number, number]) => void;
     saveButtonTitle: string;
-    saveImage: () => void;
-    imageData?: string;
+    onClickSaveButton: () => void;
+    imageURL?: string;
 };
 export function BuilderPiecePage({
     title,
     pieceSchema,
-    updatePieceSchema,
+    onClickPieceSchema,
     paletteSchema,
-    onColorSelected,
+    onClickPaletteSchema,
     saveButtonTitle,
-    imageData,
-    saveImage
+    imageURL,
+    onClickSaveButton
 }: BuilderPiecePageProps) {
     return (
         <div
@@ -36,28 +36,28 @@ export function BuilderPiecePage({
             <MatrixColorCell
                 testId={'builder-piece-canvas'}
                 colorScheme={pieceSchema}
-                onCellSelected={updatePieceSchema}
+                onCellSelected={onClickPieceSchema}
             />
             <hr />
             <MatrixColorCell
                 testId={'builder-piece-palette'}
                 colorScheme={paletteSchema}
-                onCellSelected={onColorSelected}
+                onCellSelected={onClickPaletteSchema}
                 cellSize={32}
             />
             <hr />
             <div>
                 <button
                     data-testid={'builder-piece-page-save-image-button'}
-                    onClick={saveImage}
+                    onClick={onClickSaveButton}
                 >
                     {saveButtonTitle}
                 </button>
             </div>
             <hr />
-            {imageData && (
+            {imageURL && (
                 <img
-                    src={imageData}
+                    src={imageURL}
                     alt={'piece'}
                     data-testid={'builder-piece-page-image'}
                 />

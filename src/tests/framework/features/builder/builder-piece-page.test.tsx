@@ -94,7 +94,7 @@ describe('Builder Piece Page should', () => {
         );
     });
 
-    it('create an image from canvas', async () => {
+    it('create an image from canvas with a red cross', async () => {
         const pieceColorSchema = [
             ['transparent', 'red', 'transparent'],
             ['red', 'red', 'red'],
