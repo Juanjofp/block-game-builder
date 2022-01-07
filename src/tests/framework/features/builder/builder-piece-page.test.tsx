@@ -26,6 +26,14 @@ describe('Builder Piece Page should', () => {
         selectedColor: 'transparent'
     };
 
+    const imageService = {
+        generateImageBase64FromSchema: jest.fn()
+    };
+
+    beforeEach(() => {
+        imageService.generateImageBase64FromSchema.mockClear();
+    });
+
     it('render a default canvas and a default colors palette', async () => {
         renderInsideApp(<BuilderPiecePageContainer />, {
             initialState: { palette }
@@ -36,9 +44,12 @@ describe('Builder Piece Page should', () => {
     });
 
     it('set transparent color when no color selected from palette', async () => {
-        renderInsideApp(<BuilderPiecePageContainer />, {
-            initialState: { palette }
-        });
+        renderInsideApp(
+            <BuilderPiecePageContainer imageService={imageService} />,
+            {
+                initialState: { palette }
+            }
+        );
 
         const firstCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-0-0'
@@ -52,9 +63,12 @@ describe('Builder Piece Page should', () => {
     });
 
     it('set a color from palette to the canvas', async () => {
-        renderInsideApp(<BuilderPiecePageContainer />, {
-            initialState: { palette }
-        });
+        renderInsideApp(
+            <BuilderPiecePageContainer imageService={imageService} />,
+            {
+                initialState: { palette }
+            }
+        );
 
         const firstColorButton = await screen.findByTestId(
             'builder-piece-palette-cell-0-5'
@@ -78,5 +92,30 @@ describe('Builder Piece Page should', () => {
         expect(lastCanvasCellButton).toHaveStyle(
             `background-color: ${backgroundColor}`
         );
+    });
+
+    it('create an image from canvas', async () => {
+        const pieceColorSchema = [
+            ['transparent', 'red', 'transparent'],
+            ['red', 'red', 'red'],
+            ['transparent', 'red', 'transparent']
+        ];
+        const piece = { colors: pieceColorSchema };
+        imageService.generateImageBase64FromSchema.mockReturnValue(
+            'imageBase64'
+        );
+        renderInsideApp(
+            <BuilderPiecePageContainer imageService={imageService} />,
+            {
+                initialState: { palette, piece }
+            }
+        );
+
+        const saveImageButton = await screen.findByTestId(
+            'builder-piece-page-save-image-button'
+        );
+        user.click(saveImageButton);
+
+        await screen.findByTestId('builder-piece-page-image');
     });
 });

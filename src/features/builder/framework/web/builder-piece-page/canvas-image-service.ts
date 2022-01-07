@@ -1,4 +1,4 @@
-import { ImageService } from 'features/builder/piece-interactor';
+import { ImageService } from 'features/builder/image-service';
 
 export function buildCanvasImageService(): ImageService {
     const canvas = document.createElement('canvas');

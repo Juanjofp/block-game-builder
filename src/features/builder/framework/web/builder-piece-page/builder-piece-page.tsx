@@ -7,13 +7,19 @@ export type BuilderPiecePageProps = {
     updatePieceSchema: (color: string, position: [number, number]) => void;
     paletteSchema: string[][];
     onColorSelected: (color: string, position: [number, number]) => void;
+    saveButtonTitle: string;
+    saveImage: () => void;
+    imageData?: string;
 };
 export function BuilderPiecePage({
     title,
     pieceSchema,
     updatePieceSchema,
     paletteSchema,
-    onColorSelected
+    onColorSelected,
+    saveButtonTitle,
+    imageData,
+    saveImage
 }: BuilderPiecePageProps) {
     return (
         <div
@@ -39,6 +45,23 @@ export function BuilderPiecePage({
                 onCellSelected={onColorSelected}
                 cellSize={32}
             />
+            <hr />
+            <div>
+                <button
+                    data-testid={'builder-piece-page-save-image-button'}
+                    onClick={saveImage}
+                >
+                    {saveButtonTitle}
+                </button>
+            </div>
+            <hr />
+            {imageData && (
+                <img
+                    src={imageData}
+                    alt={'piece'}
+                    data-testid={'builder-piece-page-image'}
+                />
+            )}
         </div>
     );
 }
