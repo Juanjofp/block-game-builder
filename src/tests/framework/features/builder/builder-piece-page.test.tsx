@@ -26,7 +26,7 @@ describe('Builder Piece Page should', () => {
         selectedColor: 'transparent'
     };
 
-    it('render a default canvas and a colors palette', async () => {
+    it('render a default canvas and a default colors palette', async () => {
         renderInsideApp(<BuilderPiecePageContainer />, {
             initialState: { palette }
         });

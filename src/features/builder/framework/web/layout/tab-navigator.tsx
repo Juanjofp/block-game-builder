@@ -1,7 +1,6 @@
-import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { useI18nService } from 'services/i18n/framework';
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import { buildBuilderInteractor } from '../../interactor';
+import * as React from 'react';
 
 type MenuNavigationElementProps = {
     path: string;
@@ -22,12 +21,12 @@ function MenuNavigationElement({
         </Link>
     );
 }
-function BuilderTabNavigator() {
-    const { t } = useI18nService();
-    const location = useLocation();
-    const interactor = buildBuilderInteractor();
-    const menus = interactor.buildMenuFromPath(location.pathname);
 
+type BuilderTabNavigationProps = {
+    menus: { key: string; path: string; selected: boolean }[];
+};
+export function TabNavigator({ menus }: BuilderTabNavigationProps) {
+    const { t } = useI18nService();
     return (
         <div>
             {menus.map(menu => (
@@ -41,16 +40,6 @@ function BuilderTabNavigator() {
                     }`}
                 />
             ))}
-        </div>
-    );
-}
-export function BuilderLayoutPage() {
-    const { t } = useI18nService();
-    return (
-        <div data-testid={'builder-page-container'}>
-            <h2>{t('builder_page_title')}</h2>
-            <BuilderTabNavigator />
-            <Outlet />
         </div>
     );
 }

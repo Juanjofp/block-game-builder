@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AppLayout } from 'framework/web/app-layout';
 import { useI18nService } from 'services/i18n/framework';
 import { useLog } from 'services/log/framework';
-import { BuilderLayoutPage } from 'features/builder/framework/web/builder-layout-page';
+import { BuilderLayoutPage } from 'features/builder/framework/web/layout';
 import { BuilderScenePage } from 'features/builder/framework/web/builder-scene-page';
 import { BuilderPiecePageContainer } from 'features/builder/framework/web/builder-piece-page';
 import { BuilderCharacterPage } from 'features/builder/framework/web/builder-character-page';
