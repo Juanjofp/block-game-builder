@@ -9,7 +9,9 @@ export function buildCanvasImageService(): ImageService {
                 canvas.height = schema.length * 10;
                 const ctx = canvas.getContext('2d');
                 if (!ctx) {
-                    return void reject('Could not get canvas context');
+                    return void reject(
+                        new Error('Could not get canvas context')
+                    );
                 }
                 schema.forEach((row, rowIndex) => {
                     row.forEach((color, columnIndex) => {

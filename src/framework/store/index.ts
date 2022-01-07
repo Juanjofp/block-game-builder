@@ -1,5 +1,5 @@
 import { configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit';
-import * as builderReducers from 'features/builder/framework/reducers';
+import { reducers as builderReducers } from 'features/builder/framework/reducers';
 
 const reducer = {
     ...builderReducers
