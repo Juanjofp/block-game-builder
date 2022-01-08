@@ -8,7 +8,7 @@ import { BuilderScenePage } from 'features/builder/framework/web/builder-scene-p
 import { BuilderPiecePageContainer } from 'features/builder/framework/web/builder-piece-page';
 import { BuilderCharacterPage } from 'features/builder/framework/web/builder-character-page';
 import {
-    BuilderPath,
+    BuilderSection,
     CharacterPath,
     PiecePath
 } from 'features/builder/interactor';
@@ -30,7 +30,7 @@ export function Routing() {
         <Routes>
             <Route path={'/'} element={<AppLayout />}>
                 <Route index element={<MainPage />} />
-                <Route path={BuilderPath} element={<BuilderLayoutPage />}>
+                <Route path={BuilderSection} element={<BuilderLayoutPage />}>
                     <Route index element={<BuilderScenePage />} />
                     <Route
                         path={CharacterPath}

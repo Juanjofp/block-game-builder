@@ -1,12 +1,26 @@
 import * as React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { TabNavigator } from './tab-navigator';
-import { useController } from './use-controller';
-import { buildBuilderInteractor } from 'features/builder/interactor';
+import { useI18nService } from 'services/i18n/framework';
+import { thunkLoadMenu } from 'features/builder/framework/reducers';
+import { useAppDispatch, useAppSelector } from 'framework/store/hooks';
+
+export function useController() {
+    const { t } = useI18nService();
+    const location = useLocation();
+    const dispatch = useAppDispatch();
+
+    React.useEffect(() => {
+        dispatch(thunkLoadMenu(location.pathname));
+    }, [dispatch, location.pathname]);
+
+    const menus = useAppSelector(state => state.menu);
+
+    return { menus, t };
+}
 
 export function BuilderLayoutPage() {
-    const interactor = buildBuilderInteractor();
-    const { menus, t } = useController(interactor);
+    const { menus, t } = useController();
     return (
         <div data-testid={'builder-page-container'}>
             <h2>{t('builder_page_title')}</h2>

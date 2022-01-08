@@ -1,7 +1,5 @@
 import { useI18nService } from 'services/i18n/framework';
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ReduxDispatch, ReduxRootState } from 'framework/store';
 import { BuilderPiecePage } from './builder-piece-page';
 import { buildCanvasImageService } from './canvas-image-service';
 import { ImageService } from 'features/builder/image-service';
@@ -10,11 +8,12 @@ import {
     thunkUpdatePieceColor,
     thunkSaveImageAsBase64
 } from 'features/builder/framework/reducers';
+import { useAppSelector, useAppDispatch } from 'framework/store/hooks';
 
 function useController(imageService: ImageService) {
-    const palette = useSelector((state: ReduxRootState) => state.palette);
-    const piece = useSelector((state: ReduxRootState) => state.piece);
-    const dispatch = useDispatch<ReduxDispatch>();
+    const palette = useAppSelector(state => state.palette);
+    const piece = useAppSelector(state => state.piece);
+    const dispatch = useAppDispatch();
 
     const selectColorFromPalette = (
         color: string,

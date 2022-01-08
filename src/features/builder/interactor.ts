@@ -1,61 +1,75 @@
-export const BuilderPath = 'builder';
+export const BuilderSection = 'builder';
 export const ScenePath = '';
 export const CharacterPath = 'character';
 export const PiecePath = 'piece';
 
-export type BuilderPath = 'builder';
+export type BuilderSection = 'builder';
 export type BuilderPaths = '' | 'character' | 'piece';
+export type MenuKeys = 'character' | 'piece' | 'scene';
+export type ValidMenuKeys = MenuKeys | undefined;
+export const menuKeys = ['character', 'piece', 'scene'];
 
-export type BuilderMenuElement = {
-    path: `/${BuilderPath}/${BuilderPaths}`;
+export type MenuElement = {
+    path: `/${BuilderSection}/${BuilderPaths}`;
     lastPath: BuilderPaths;
-    key: 'character' | 'piece' | 'scene';
-    selected: boolean;
+    key: MenuKeys;
 };
+
+export const menus: MenuElement[] = [
+    {
+        path: `/${BuilderSection}/${ScenePath}`,
+        lastPath: ScenePath,
+        key: 'scene'
+    },
+    {
+        path: `/${BuilderSection}/${CharacterPath}`,
+        lastPath: CharacterPath,
+        key: 'character'
+    },
+    {
+        path: `/${BuilderSection}/${PiecePath}`,
+        lastPath: PiecePath,
+        key: 'piece'
+    }
+];
+
+function isValidMenuKey(key: string): key is MenuKeys {
+    return menuKeys.includes(key);
+}
+
+function containsValidPath(path: string): ValidMenuKeys {
+    if (isValidMenuKey(path)) return path;
+}
+
+function removeFinalSlash(path: string): string {
+    let endPath = path;
+    while (endPath.endsWith('/')) {
+        endPath = endPath.slice(0, -1);
+    }
+    return endPath;
+}
+
 export function buildBuilderInteractor() {
-    const menus: BuilderMenuElement[] = [
-        {
-            path: `/${BuilderPath}/${ScenePath}`,
-            lastPath: ScenePath,
-            selected: true,
-            key: 'scene'
-        },
-        {
-            path: `/${BuilderPath}/${CharacterPath}`,
-            lastPath: CharacterPath,
-            selected: false,
-            key: 'character'
-        },
-        {
-            path: `/${BuilderPath}/${PiecePath}`,
-            lastPath: PiecePath,
-            selected: false,
-            key: 'piece'
-        }
-    ];
-    function buildMenuFromPath(path: string): BuilderMenuElement[] {
-        const segments = path.split('/');
-        const lastPath = segments.pop();
+    function loadMenuFromPath(path: string): ValidMenuKeys {
+        const endPath = removeFinalSlash(path);
+        const segments = endPath.split('/');
+        const lastPath = segments.pop() || '';
         const section = segments.pop();
 
-        if (lastPath === 'builder') {
-            menus[0].selected = true;
-            return menus.slice();
+        if (segments.length > 1) return undefined;
+
+        if (lastPath === BuilderSection) {
+            return 'scene';
         }
 
-        if (section !== BuilderPath) {
-            return menus.slice().map(menu => {
-                menu.selected = false;
-                return menu;
-            });
+        if (section !== BuilderSection) {
+            return undefined;
         }
-        return menus.slice().map(menu => {
-            menu.selected = menu.lastPath === lastPath;
-            return menu;
-        });
+
+        return containsValidPath(lastPath);
     }
 
     return {
-        buildMenuFromPath
+        buildMenuFromPath: loadMenuFromPath
     };
 }

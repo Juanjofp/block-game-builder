@@ -2,52 +2,45 @@ import { buildBuilderInteractor } from 'features/builder/interactor';
 
 describe('Builder Interactor should', () => {
     it.each([
-        { section: '/builder', path: 'scene', key: '', menuIndex: 0 },
-        { section: '/builder/', path: 'scene', key: '', menuIndex: 0 },
+        { path: '/builder', key: 'scene' },
+        { path: '/builder/', key: 'scene' },
+        { path: '/builder//', key: 'scene' },
         {
-            section: '/builder/',
-            path: 'character',
-            key: 'character',
-            menuIndex: 1
+            path: '/builder/character',
+            key: 'character'
         },
         {
-            section: '/builder/',
-            path: 'piece',
-            key: 'piece',
-            menuIndex: 2
+            path: '/builder/piece',
+            key: 'piece'
+        },
+        {
+            path: '/builder/character/',
+            key: 'character'
+        },
+        {
+            path: '/builder/piece/',
+            key: 'piece'
         }
-    ])(
-        'build the menu and select $path path',
-        ({ section, key, menuIndex }) => {
-            const interactor = buildBuilderInteractor();
-            const path = section + key;
+    ])('select the menu $key for $path path', ({ path, key }) => {
+        const interactor = buildBuilderInteractor();
 
-            const menu = interactor.buildMenuFromPath(path);
+        const menu = interactor.buildMenuFromPath(path);
 
-            expect(menu.length).toBe(3);
-
-            const sceneMenu = menu[menuIndex];
-            expect(sceneMenu.selected).toBe(true);
-        }
-    );
+        expect(menu).toBe(key);
+    });
 
     it.each([
         { path: '' },
         { path: '/builder/noway' },
         { path: '/play' },
-        { path: '/play/level-one' }
-    ])(
-        'build the menu and select nothing when invalid path "$path"',
-        ({ path }) => {
-            const interactor = buildBuilderInteractor();
+        { path: '/play/level-one' },
+        { path: '/play/level-one/' },
+        { path: '/play/level-one/level-two/level-three' }
+    ])('select undefined when invalid path "$path"', ({ path }) => {
+        const interactor = buildBuilderInteractor();
 
-            const menu = interactor.buildMenuFromPath(path);
+        const menu = interactor.buildMenuFromPath(path);
 
-            expect(menu.length).toBe(3);
-
-            menu.forEach(item => {
-                expect(item.selected).toBe(false);
-            });
-        }
-    );
+        expect(menu).toBe(undefined);
+    });
 });
