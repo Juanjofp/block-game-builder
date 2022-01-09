@@ -3,7 +3,7 @@ import piece, { updatePieceColor, updatePieceImage } from './piece';
 import menu, { selectMenu } from './menu';
 import { ReduxDispatch, ReduxRootState } from 'framework/store';
 import { ImageService } from 'features/builder/image-service';
-import { buildBuilderInteractor } from '../../interactor';
+import { buildBuilderInteractor } from 'features/builder/interactor';
 import { combineReducers } from '@reduxjs/toolkit';
 
 export const reducers = combineReducers({ palette, piece, menu });
