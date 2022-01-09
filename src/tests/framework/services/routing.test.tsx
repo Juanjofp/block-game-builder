@@ -18,7 +18,7 @@ describe('Routing service should', () => {
         await screen.findByTestId('builder-scene-page-container');
     });
 
-    it('Render in Index when path is /builder/piece', async () => {
+    it('Render in Piece when path is /builder/piece', async () => {
         renderInsideApp(<Routing />, {
             index: 2,
             history: ['/', '/builder', '/builder/piece']
@@ -26,5 +26,15 @@ describe('Routing service should', () => {
 
         await screen.findByTestId('builder-page-container');
         await screen.findByTestId('builder-piece-page-container');
+    });
+
+    it('Render in Character when path is /builder/character', async () => {
+        renderInsideApp(<Routing />, {
+            index: 2,
+            history: ['/', '/builder', '/builder/character']
+        });
+
+        await screen.findByTestId('builder-page-container');
+        await screen.findByTestId('builder-character-page-container');
     });
 });
