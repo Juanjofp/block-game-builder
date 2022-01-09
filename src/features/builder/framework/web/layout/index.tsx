@@ -1,21 +1,12 @@
 import * as React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { TabNavigator } from './tab-navigator';
 import { useI18nService } from 'services/i18n/framework';
-import {
-    getMenu,
-    thunkSelectMenuOptionFromPath
-} from 'features/builder/framework/reducers';
-import { useAppDispatch, useAppSelector } from 'framework/store/hooks';
+import { getMenu } from 'features/builder/framework/reducers';
+import { useAppSelector } from 'framework/store/hooks';
 
 export function useController() {
     const { t } = useI18nService();
-    const location = useLocation();
-    const dispatch = useAppDispatch();
-
-    React.useEffect(() => {
-        dispatch(thunkSelectMenuOptionFromPath(location.pathname));
-    }, [dispatch, location.pathname]);
 
     const menus = useAppSelector(getMenu);
 

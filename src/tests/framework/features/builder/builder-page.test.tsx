@@ -1,5 +1,5 @@
 import { renderInsideApp, screen, user } from 'test-utils';
-import { Routing } from 'services/routing/framework';
+import { Routing } from 'services/routing/framework/web';
 
 describe('Builder page should', () => {
     it('render a TabComponent with 3 options', async () => {

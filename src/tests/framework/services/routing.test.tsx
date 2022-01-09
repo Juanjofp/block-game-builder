@@ -1,5 +1,5 @@
 import { renderInsideApp, screen } from 'test-utils';
-import { Routing } from 'services/routing/framework';
+import { Routing } from 'services/routing/framework/web';
 
 describe('Routing service should', () => {
     it('Render Main Page when path is /', async () => {

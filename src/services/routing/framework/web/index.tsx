@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AppLayout } from 'framework/web/app-layout';
 import { useI18nService } from 'services/i18n/framework';
 import { useLog } from 'services/log/framework';
@@ -11,7 +11,9 @@ import {
     BuilderSection,
     BuilderCharacterPath,
     BuilderPiecePath
-} from '../models';
+} from 'services/routing/models';
+import { useAppDispatch } from 'framework/store/hooks';
+import { thunkUpdateRoute } from '../reducers';
 
 export function MainPage() {
     const { t } = useI18nService();
@@ -24,6 +26,12 @@ export function MainPage() {
 
 export function Routing() {
     const { info } = useLog();
+
+    const location = useLocation();
+    const dispatch = useAppDispatch();
+    React.useEffect(() => {
+        dispatch(thunkUpdateRoute(location.pathname));
+    }, [dispatch, location.pathname]);
 
     info('App init');
     return (

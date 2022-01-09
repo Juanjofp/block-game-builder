@@ -7,7 +7,7 @@ import { useI18next } from 'services/i18n/framework/i18next-service';
 import { I18nProvider } from 'services/i18n/framework';
 import { LogProvider } from 'services/log/framework';
 import { loadProductionLog } from 'services/log/framework/load-log-service';
-import { Routing } from 'services/routing/framework';
+import { Routing } from 'services/routing/framework/web';
 import { AppError, errorHandler, resetHandler } from './app-error';
 
 import { LogService } from 'services/log/log-service';
