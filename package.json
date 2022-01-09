@@ -6,7 +6,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "test:commit": "react-scripts test --watchAll=false",
+        "test:commit": "react-scripts test --watchAll=false --passWithNoTests",
         "test:coverage": "react-scripts test --coverage --watchAll",
         "eject": "react-scripts eject",
         "prepare": "husky install",
@@ -48,7 +48,8 @@
             "react-app/jest"
         ],
         "rules": {
-            "jest/no-conditional-expect": 0
+            "jest/no-conditional-expect": 0,
+            "@typescript-eslint/no-redeclare": 0
         }
     },
     "browserslist": {
