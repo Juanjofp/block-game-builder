@@ -7,9 +7,7 @@ import { useAppSelector } from 'framework/store/hooks';
 
 export function useController() {
     const { t } = useI18nService();
-
     const menus = useAppSelector(getMenu);
-
     return { menus, t };
 }
 
