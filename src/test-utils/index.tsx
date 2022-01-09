@@ -7,7 +7,7 @@ import { FallbackProps } from 'react-error-boundary';
 import { AppError } from 'framework/web/app-error';
 import { LogService } from 'services/log/log-service';
 import { AppDependencies } from 'framework/web';
-import { buildStore, ReduxRootState } from 'framework/store';
+import { buildStore, ReduxPreloadState } from 'framework/store';
 
 type MockLogService = LogService & {
     info: jest.Mock;
@@ -29,15 +29,16 @@ export function renderInsideApp(
         CustomError = AppError,
         ...rest
     }: {
-        initialState?: Partial<ReduxRootState>;
+        initialState?: ReduxPreloadState;
         index?: number;
         history?: string[];
         CustomError?: React.ComponentType<FallbackProps>;
     } = {}
 ) {
+    const store = buildStore(initialState);
     function Wrapper(props: {}) {
         const i18nService = useI18next();
-        const store = buildStore(initialState);
+
         return (
             <AppDependencies
                 reduxStore={store}
@@ -56,7 +57,8 @@ export function renderInsideApp(
     const queries = render(ui, { wrapper: Wrapper, ...rest });
     return {
         ...queries,
-        mockLogService
+        mockLogService,
+        store
     };
 }
 

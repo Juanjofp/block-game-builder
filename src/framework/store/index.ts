@@ -1,13 +1,17 @@
 import { configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit';
 import { reducers as builderReducers } from 'features/builder/framework/reducers';
+import { CombinedState, PreloadedState } from 'redux';
+import { NoInfer } from '@reduxjs/toolkit/src/tsHelpers';
 
 const reducer = {
     ...builderReducers
 };
 
 export type ReduxRootState = StateFromReducersMapObject<typeof reducer>;
-
-export function buildStore(preloadedState?: Partial<ReduxRootState>) {
+export type ReduxPreloadState = PreloadedState<
+    CombinedState<NoInfer<ReduxRootState>>
+>;
+export function buildStore(preloadedState?: ReduxPreloadState) {
     return configureStore({
         reducer,
         preloadedState
