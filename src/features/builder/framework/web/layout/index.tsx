@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { TabNavigator } from './tab-navigator';
 import { useI18nService } from 'services/i18n/framework';
-import { thunkLoadMenu } from 'features/builder/framework/reducers';
+import { thunkSelectMenuOptionFromPath } from 'features/builder/framework/reducers';
 import { useAppDispatch, useAppSelector } from 'framework/store/hooks';
 
 export function useController() {
@@ -11,7 +11,7 @@ export function useController() {
     const dispatch = useAppDispatch();
 
     React.useEffect(() => {
-        dispatch(thunkLoadMenu(location.pathname));
+        dispatch(thunkSelectMenuOptionFromPath(location.pathname));
     }, [dispatch, location.pathname]);
 
     const menus = useAppSelector(state => state.menu);

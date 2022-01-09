@@ -9,9 +9,9 @@ import { BuilderPiecePageContainer } from 'features/builder/framework/web/builde
 import { BuilderCharacterPage } from 'features/builder/framework/web/builder-character-page';
 import {
     BuilderSection,
-    CharacterPath,
-    PiecePath
-} from 'features/builder/interactor';
+    BuilderCharacterPath,
+    BuilderPiecePath
+} from '../models';
 
 export function MainPage() {
     const { t } = useI18nService();
@@ -33,11 +33,11 @@ export function Routing() {
                 <Route path={BuilderSection} element={<BuilderLayoutPage />}>
                     <Route index element={<BuilderScenePage />} />
                     <Route
-                        path={CharacterPath}
+                        path={BuilderCharacterPath}
                         element={<BuilderCharacterPage />}
                     />
                     <Route
-                        path={PiecePath}
+                        path={BuilderPiecePath}
                         element={<BuilderPiecePageContainer />}
                     />
                 </Route>

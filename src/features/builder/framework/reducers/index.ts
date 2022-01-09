@@ -30,7 +30,7 @@ export function thunkSaveImageAsBase64(imageService: ImageService) {
     };
 }
 
-export function thunkLoadMenu(currentPath: string) {
+export function thunkSelectMenuOptionFromPath(currentPath: string) {
     return (dispatch: ReduxDispatch) => {
         const interactor = buildBuilderInteractor();
         const menuKey = interactor.buildMenuFromPath(currentPath);

@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ValidMenuKeys, MenuElement, menus } from 'features/builder/interactor';
+import {
+    ValidMenuKeys,
+    MenuElement,
+    menus
+} from 'features/builder/menu-models';
 
 export type BuilderMenuElement = {
     selected: boolean;
