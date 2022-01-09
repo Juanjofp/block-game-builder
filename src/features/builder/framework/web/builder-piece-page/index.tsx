@@ -6,13 +6,15 @@ import { ImageService } from 'features/builder/image-service';
 import {
     thunkUpdateSelectedColorInPalette,
     thunkUpdatePieceColor,
-    thunkSaveImageAsBase64
+    thunkSaveImageAsBase64,
+    getPalette,
+    getPiece
 } from 'features/builder/framework/reducers';
 import { useAppSelector, useAppDispatch } from 'framework/store/hooks';
 
 function useController(imageService: ImageService) {
-    const palette = useAppSelector(state => state.palette);
-    const piece = useAppSelector(state => state.piece);
+    const palette = useAppSelector(getPalette);
+    const piece = useAppSelector(getPiece);
     const dispatch = useAppDispatch();
 
     const selectColorFromPalette = (

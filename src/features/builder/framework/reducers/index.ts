@@ -4,8 +4,9 @@ import menu, { selectMenu } from './menu';
 import { ReduxDispatch, ReduxRootState } from 'framework/store';
 import { ImageService } from 'features/builder/image-service';
 import { buildBuilderInteractor } from '../../interactor';
+import { combineReducers } from '@reduxjs/toolkit';
 
-export const reducers = { palette, piece, menu };
+export const reducers = combineReducers({ palette, piece, menu });
 
 export function thunkUpdateSelectedColorInPalette(position: [number, number]) {
     return (dispatch: ReduxDispatch) => {
@@ -15,14 +16,14 @@ export function thunkUpdateSelectedColorInPalette(position: [number, number]) {
 
 export function thunkUpdatePieceColor(position: [number, number]) {
     return (dispatch: ReduxDispatch, getState: () => ReduxRootState) => {
-        const selectedColor = getState().palette.selectedColor;
+        const selectedColor = getPalette(getState()).selectedColor;
         dispatch(updatePieceColor({ color: selectedColor, position }));
     };
 }
 
 export function thunkSaveImageAsBase64(imageService: ImageService) {
     return async (dispatch: ReduxDispatch, getState: () => ReduxRootState) => {
-        const pieceSchema = getState().piece.colors;
+        const pieceSchema = getPiece(getState()).colors;
         const image = await imageService.generateImageBase64FromSchema(
             pieceSchema
         );
@@ -36,4 +37,16 @@ export function thunkSelectMenuOptionFromPath(currentPath: string) {
         const menuKey = interactor.buildMenuFromPath(currentPath);
         dispatch(selectMenu(menuKey));
     };
+}
+
+export function getPiece(state: ReduxRootState) {
+    return state.builder.piece;
+}
+
+export function getPalette(state: ReduxRootState) {
+    return state.builder.palette;
+}
+
+export function getMenu(state: ReduxRootState) {
+    return state.builder.menu;
 }

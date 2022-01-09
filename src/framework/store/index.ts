@@ -4,7 +4,7 @@ import { CombinedState, PreloadedState } from 'redux';
 import { NoInfer } from '@reduxjs/toolkit/src/tsHelpers';
 
 const reducer = {
-    ...builderReducers
+    builder: builderReducers
 };
 
 export type ReduxRootState = StateFromReducersMapObject<typeof reducer>;

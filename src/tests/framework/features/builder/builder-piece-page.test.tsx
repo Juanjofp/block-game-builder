@@ -36,7 +36,7 @@ describe('Builder Piece Page should', () => {
 
     it('render a default canvas and a default colors palette', async () => {
         renderInsideApp(<BuilderPiecePageContainer />, {
-            initialState: { palette }
+            initialState: { builder: { palette } }
         });
 
         await expectedMatrix('builder-piece-canvas', 12, 12);
@@ -47,7 +47,7 @@ describe('Builder Piece Page should', () => {
         renderInsideApp(
             <BuilderPiecePageContainer imageService={imageService} />,
             {
-                initialState: { palette }
+                initialState: { builder: { palette } }
             }
         );
 
@@ -66,7 +66,7 @@ describe('Builder Piece Page should', () => {
         renderInsideApp(
             <BuilderPiecePageContainer imageService={imageService} />,
             {
-                initialState: { palette }
+                initialState: { builder: { palette } }
             }
         );
 
@@ -107,7 +107,7 @@ describe('Builder Piece Page should', () => {
         renderInsideApp(
             <BuilderPiecePageContainer imageService={imageService} />,
             {
-                initialState: { palette, piece }
+                initialState: { builder: { palette, piece } }
             }
         );
 
