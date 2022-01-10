@@ -16,18 +16,14 @@ export const pieceSlice = createSlice({
     name: 'piece',
     initialState,
     reducers: {
-        updatePieceColor(
-            state,
-            action: PayloadAction<{ color: string; position: [number, number] }>
-        ) {
-            const [row, col] = action.payload.position;
-            state.colors[row][col] = action.payload.color;
-        },
         updatePieceImage(state, action: PayloadAction<string>) {
             state.image = action.payload;
+        },
+        updatePieceSchema(state, action: PayloadAction<string[][]>) {
+            state.colors = action.payload;
         }
     }
 });
 
-export const { updatePieceColor, updatePieceImage } = pieceSlice.actions;
+export const { updatePieceImage, updatePieceSchema } = pieceSlice.actions;
 export default pieceSlice.reducer;

@@ -23,7 +23,8 @@ describe('Builder Piece Page should', () => {
     ];
     const palette = {
         colors: paletteScheme,
-        selectedColor: 'transparent'
+        selectedColor: 'transparent',
+        isBucketEnabled: false
     };
 
     const imageService = {
@@ -117,5 +118,82 @@ describe('Builder Piece Page should', () => {
         user.click(saveImageButton);
 
         await screen.findByTestId('builder-piece-page-image');
+    });
+
+    it('set all canvas to red color when using bucket tool', async () => {
+        const pieceColorSchema = [
+            ['transparent', 'transparent', 'transparent'],
+            ['transparent', 'transparent', 'transparent'],
+            ['transparent', 'transparent', 'transparent']
+        ];
+        const piece = { colors: pieceColorSchema };
+
+        renderInsideApp(
+            <BuilderPiecePageContainer imageService={imageService} />,
+            {
+                initialState: { builder: { palette, piece } }
+            }
+        );
+
+        const colorButton = await screen.findByTestId(
+            'builder-piece-palette-cell-0-2'
+        );
+        user.click(colorButton);
+
+        const bucketButton = await screen.findByTestId(
+            'builder-piece-palette-bucket-button'
+        );
+        user.click(bucketButton);
+
+        const firstCanvasCellButton = await screen.findByTestId(
+            'builder-piece-canvas-cell-0-0'
+        );
+        user.click(firstCanvasCellButton);
+
+        const pieceCanvasCells = await screen.findAllByTestId(
+            /builder-piece-canvas-cell-\d-\d/
+        );
+
+        expect(pieceCanvasCells).toHaveLength(9);
+        for (const cell in pieceCanvasCells) {
+            expect(pieceCanvasCells[cell]).toHaveStyle(`background-color: red`);
+        }
+    });
+
+    it('toggle bucket when pressed again', async () => {
+        const pieceColorSchema = [
+            ['transparent', 'transparent', 'transparent'],
+            ['transparent', 'transparent', 'transparent'],
+            ['transparent', 'transparent', 'transparent']
+        ];
+        const piece = { colors: pieceColorSchema };
+
+        renderInsideApp(
+            <BuilderPiecePageContainer imageService={imageService} />,
+            {
+                initialState: { builder: { palette, piece } }
+            }
+        );
+
+        const colorButton = await screen.findByTestId(
+            'builder-piece-palette-cell-0-3'
+        );
+        const selectedColor = colorButton.style.backgroundColor;
+        user.click(colorButton);
+
+        const bucketButton = await screen.findByTestId(
+            'builder-piece-palette-bucket-button'
+        );
+        user.click(bucketButton);
+        user.click(bucketButton);
+
+        const firstCanvasCellButton = await screen.findByTestId(
+            'builder-piece-canvas-cell-0-0'
+        );
+        user.click(firstCanvasCellButton);
+
+        expect(firstCanvasCellButton).toHaveStyle(
+            'background-color: ' + selectedColor
+        );
     });
 });

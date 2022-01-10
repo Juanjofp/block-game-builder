@@ -4,6 +4,7 @@ import { BuilderPiecePage } from './builder-piece-page';
 import { buildCanvasImageService } from './canvas-image-service';
 import { ImageService } from 'features/builder/image-service';
 import {
+    thunkToggleBucketInPalette,
     thunkUpdateSelectedColorInPalette,
     thunkUpdatePieceColor,
     thunkSaveImageAsBase64,
@@ -33,12 +34,17 @@ function useController(imageService: ImageService) {
         dispatch(thunkSaveImageAsBase64(imageService));
     };
 
+    const toggleBucketInPalette = () => {
+        dispatch(thunkToggleBucketInPalette());
+    };
+
     return {
         palette,
         piece,
         selectColorFromPalette,
         updateColorInPieceSchema,
-        saveImage
+        saveImage,
+        toggleBucketInPalette
     };
 }
 
@@ -54,7 +60,8 @@ export function BuilderPiecePageContainer({
         updateColorInPieceSchema,
         palette,
         selectColorFromPalette,
-        saveImage
+        saveImage,
+        toggleBucketInPalette
     } = useController(imageService);
 
     return (
@@ -67,6 +74,8 @@ export function BuilderPiecePageContainer({
             saveButtonTitle={t('builder_piece_page_save_button_title')}
             onClickSaveButton={saveImage}
             imageURL={piece.image}
+            bucketButtonTitle={t('builder_piece_page_bucket_button_title')}
+            onBucketClick={toggleBucketInPalette}
         />
     );
 }

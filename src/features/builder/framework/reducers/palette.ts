@@ -4,6 +4,7 @@ export type PaletteState = {
     colors: string[][];
     selectedIndex?: [number, number];
     selectedColor: string;
+    isBucketEnabled: boolean;
 };
 
 const initialState: PaletteState = {
@@ -11,7 +12,8 @@ const initialState: PaletteState = {
         ['red', 'green', 'blue', 'brown', 'black'],
         ['yellow', 'orange', 'purple', 'white', 'transparent']
     ],
-    selectedColor: 'transparent'
+    selectedColor: 'transparent',
+    isBucketEnabled: false
 };
 
 export const paletteSlice = createSlice({
@@ -22,9 +24,12 @@ export const paletteSlice = createSlice({
             const [row, col] = action.payload;
             state.selectedIndex = action.payload;
             state.selectedColor = state.colors[row][col];
+        },
+        enableBucket(state, action: PayloadAction<boolean>) {
+            state.isBucketEnabled = action.payload;
         }
     }
 });
 
-export const { selectColor } = paletteSlice.actions;
+export const { selectColor, enableBucket } = paletteSlice.actions;
 export default paletteSlice.reducer;

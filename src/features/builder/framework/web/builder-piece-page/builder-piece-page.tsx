@@ -10,6 +10,8 @@ export type BuilderPiecePageProps = {
     saveButtonTitle: string;
     onClickSaveButton: () => void;
     imageURL?: string;
+    bucketButtonTitle: string;
+    onBucketClick: () => void;
 };
 export function BuilderPiecePage({
     title,
@@ -19,7 +21,9 @@ export function BuilderPiecePage({
     onClickPaletteSchema,
     saveButtonTitle,
     imageURL,
-    onClickSaveButton
+    onClickSaveButton,
+    bucketButtonTitle,
+    onBucketClick
 }: BuilderPiecePageProps) {
     return (
         <div
@@ -39,12 +43,23 @@ export function BuilderPiecePage({
                 onCellSelected={onClickPieceSchema}
             />
             <hr />
-            <MatrixColorCell
-                testId={'builder-piece-palette'}
-                colorScheme={paletteSchema}
-                onCellSelected={onClickPaletteSchema}
-                cellSize={32}
-            />
+            <div>
+                <div>Palette</div>
+                <MatrixColorCell
+                    testId={'builder-piece-palette'}
+                    colorScheme={paletteSchema}
+                    onCellSelected={onClickPaletteSchema}
+                    cellSize={32}
+                />
+                <div>
+                    <button
+                        data-testid={'builder-piece-palette-bucket-button'}
+                        onClick={onBucketClick}
+                    >
+                        {bucketButtonTitle}
+                    </button>
+                </div>
+            </div>
             <hr />
             <div>
                 <button
