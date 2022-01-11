@@ -160,4 +160,54 @@ describe('Builder Interactor should', () => {
             ['yellow', 'yellow', 'yellow']
         ]);
     });
+
+    it('update all colors on left side of matrix', () => {
+        const interactor = buildBuilderInteractor();
+
+        const sourceSchema = [
+            ['black', 'transparent', 'transparent'],
+            ['transparent', 'black', 'transparent'],
+            ['transparent', 'transparent', 'black']
+        ];
+        const newColor = 'yellow';
+        const position: [number, number] = [2, 0];
+
+        const schema = interactor.updatePieceColorScheme(
+            position,
+            newColor,
+            sourceSchema,
+            true
+        );
+
+        expect(schema).toEqual([
+            ['black', 'transparent', 'transparent'],
+            ['yellow', 'black', 'transparent'],
+            ['yellow', 'yellow', 'black']
+        ]);
+    });
+
+    it('update all colors on left side of matrix when it has a color', () => {
+        const interactor = buildBuilderInteractor();
+
+        const sourceSchema = [
+            ['black', 'transparent', 'transparent'],
+            ['yellow', 'black', 'transparent'],
+            ['yellow', 'yellow', 'black']
+        ];
+        const newColor = 'blue';
+        const position: [number, number] = [2, 0];
+
+        const schema = interactor.updatePieceColorScheme(
+            position,
+            newColor,
+            sourceSchema,
+            true
+        );
+
+        expect(schema).toEqual([
+            ['black', 'transparent', 'transparent'],
+            ['blue', 'black', 'transparent'],
+            ['blue', 'blue', 'black']
+        ]);
+    });
 });

@@ -1,5 +1,31 @@
 import { ValidMenuKeys, MenuSection, containsValidPath } from './menu-models';
 
+export function buildBuilderInteractor() {
+    return {
+        buildMenuFromPath: loadMenuFromPath,
+        updatePieceColorScheme
+    };
+}
+
+function loadMenuFromPath(path: string): ValidMenuKeys {
+    const endPath = removeFinalSlash(path);
+    const segments = endPath.split('/');
+    const lastPath = segments.pop() || '';
+    const section = segments.pop();
+
+    if (segments.length > 1) return undefined;
+
+    if (lastPath === MenuSection) {
+        return 'scene';
+    }
+
+    if (section !== MenuSection) {
+        return undefined;
+    }
+
+    return containsValidPath(lastPath);
+}
+
 function removeFinalSlash(path: string): string {
     let endPath = path;
     while (endPath.endsWith('/')) {
@@ -8,119 +34,95 @@ function removeFinalSlash(path: string): string {
     return endPath;
 }
 
-export function buildBuilderInteractor() {
-    function loadMenuFromPath(path: string): ValidMenuKeys {
-        const endPath = removeFinalSlash(path);
-        const segments = endPath.split('/');
-        const lastPath = segments.pop() || '';
-        const section = segments.pop();
+function updatePieceColorScheme(
+    position: [number, number],
+    color: string,
+    colorScheme: string[][],
+    isBucketEnabled = false
+) {
+    if (isBucketEnabled) {
+        return fillAvailableCellsWithColor(position, colorScheme, color);
+    }
+    return updateCellWithColor(position, color, colorScheme);
+}
 
-        if (segments.length > 1) return undefined;
+function fillAvailableCellsWithColor(
+    [row, column]: [number, number],
+    colorScheme: string[][],
+    selectedColor: string
+) {
+    const newSchema = colorScheme.map(row => row.slice());
+    const oldColor = newSchema[row][column];
+    newSchema[row][column] = selectedColor;
+    updateColorNeighbours([[row, column]], newSchema, oldColor, selectedColor);
+    return newSchema;
+}
 
-        if (lastPath === MenuSection) {
-            return 'scene';
+function updateCellWithColor(
+    [row, column]: [number, number],
+    color: string,
+    colorScheme: string[][]
+) {
+    const newColorScheme = colorScheme.map(row => [...row]);
+    newColorScheme[row][column] = color;
+    return newColorScheme;
+}
+
+function getValidNeighbours(
+    numOfRows: number,
+    numOfColumns: number,
+    [row, column]: [number, number]
+): [number, number][] {
+    const maxRows = numOfRows - 1;
+    const maxColumns = numOfColumns - 1;
+    const neighbours: [number, number][] = [];
+    if (row > 0) neighbours.push([row - 1, column]);
+    if (row < maxRows) neighbours.push([row + 1, column]);
+    if (column > 0) neighbours.push([row, column - 1]);
+    if (column < maxColumns) neighbours.push([row, column + 1]);
+    return neighbours;
+}
+
+function updateColorAndCollectNeighboursWithOldColorInSchema(
+    oldColor: string,
+    newColor: string,
+    neighbours: [number, number][],
+    schema: string[][]
+) {
+    const nextNeighbours: [number, number][] = [];
+    neighbours.forEach(neighbour => {
+        const [row, column] = neighbour;
+        const neighborColor = schema[row][column];
+        if (neighborColor === oldColor) {
+            schema[row][column] = newColor;
+            nextNeighbours.push([row, column]);
         }
+    });
+    return nextNeighbours;
+}
 
-        if (section !== MenuSection) {
-            return undefined;
-        }
+function updateColorNeighbours(
+    cells: [number, number][],
+    newSchema: string[][],
+    oldColor: string,
+    newColor: string
+) {
+    if (cells.length === 0) return;
+    cells.forEach(cell => {
+        const neighborsOfCell = getValidNeighbours(
+            newSchema.length,
+            newSchema[0].length,
+            cell
+        );
 
-        return containsValidPath(lastPath);
-    }
+        const nextNeighbours =
+            updateColorAndCollectNeighboursWithOldColorInSchema(
+                oldColor,
+                newColor,
+                neighborsOfCell,
+                newSchema
+            );
 
-    function updateColorNeigbours(
-        cells: [number, number][],
-        newSchema: string[][],
-        selectedColor: string
-    ) {
-        if (cells.length === 0) return;
-        cells.forEach(cell => {
-            const [row, column] = cell;
-            const neighborsOfCell = [
-                [row - 1, column],
-                [row, column - 1],
-                [row, column + 1],
-                [row + 1, column]
-            ];
-
-            const nextNeighbours: [number, number][] = [];
-            neighborsOfCell.forEach(neighbor => {
-                const [neighborRow, neighborColumn] = neighbor;
-                if (
-                    neighborRow >= 0 &&
-                    neighborRow < newSchema.length &&
-                    neighborColumn >= 0 &&
-                    neighborColumn < newSchema[0].length
-                ) {
-                    const neighborColor =
-                        newSchema[neighborRow][neighborColumn];
-                    if (neighborColor === 'transparent') {
-                        newSchema[neighborRow][neighborColumn] = selectedColor;
-                        nextNeighbours.push([neighborRow, neighborColumn]);
-                    }
-                }
-            });
-            updateColorNeigbours(nextNeighbours, newSchema, selectedColor);
-        });
-    }
-
-    function fillAvailableCellsWithColor(
-        [row, column]: [number, number],
-        colorScheme: string[][],
-        selectedColor: string
-    ) {
-        const newSchema = colorScheme.map(row => row.slice());
-        newSchema[row][column] = selectedColor;
-        const neighbors = [
-            [row - 1, column],
-            [row, column - 1],
-            [row, column + 1],
-            [row + 1, column]
-        ];
-        const nextNeigbours: [number, number][] = [];
-        neighbors.forEach(neighbor => {
-            const [neighborRow, neighborColumn] = neighbor;
-            if (
-                neighborRow >= 0 &&
-                neighborRow < newSchema.length &&
-                neighborColumn >= 0 &&
-                neighborColumn < newSchema[0].length
-            ) {
-                const neighborColor = newSchema[neighborRow][neighborColumn];
-                if (neighborColor === 'transparent') {
-                    newSchema[neighborRow][neighborColumn] = selectedColor;
-                    nextNeigbours.push([neighborRow, neighborColumn]);
-                }
-            }
-        });
-        updateColorNeigbours(nextNeigbours, newSchema, selectedColor);
-        return newSchema;
-    }
-
-    function updateCellWithColor(
-        [row, column]: [number, number],
-        color: string,
-        colorScheme: string[][]
-    ) {
-        const newColorScheme = colorScheme.map(row => [...row]);
-        newColorScheme[row][column] = color;
-        return newColorScheme;
-    }
-
-    function updatePieceColorScheme(
-        position: [number, number],
-        color: string,
-        colorScheme: string[][],
-        isBucketEnabled = false
-    ) {
-        if (isBucketEnabled) {
-            return fillAvailableCellsWithColor(position, colorScheme, color);
-        }
-        return updateCellWithColor(position, color, colorScheme);
-    }
-
-    return {
-        buildMenuFromPath: loadMenuFromPath,
-        updatePieceColorScheme
-    };
+        updateColorNeighbours(nextNeighbours, newSchema, oldColor, newColor);
+    });
 }
