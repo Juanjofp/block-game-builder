@@ -1,29 +1,22 @@
 import * as React from 'react';
 import { MatrixColorCell } from './matrix-color-cell';
+import { PaletteColor } from './palette-color';
 
 export type BuilderPiecePageProps = {
     title: string;
     pieceSchema: string[][];
     onClickPieceSchema: (color: string, position: [number, number]) => void;
-    paletteSchema: string[][];
-    onClickPaletteSchema: (color: string, position: [number, number]) => void;
     saveButtonTitle: string;
     onClickSaveButton: () => void;
     imageURL?: string;
-    bucketButtonTitle: string;
-    onBucketClick: () => void;
 };
 export function BuilderPiecePage({
     title,
     pieceSchema,
     onClickPieceSchema,
-    paletteSchema,
-    onClickPaletteSchema,
     saveButtonTitle,
     imageURL,
-    onClickSaveButton,
-    bucketButtonTitle,
-    onBucketClick
+    onClickSaveButton
 }: BuilderPiecePageProps) {
     return (
         <div
@@ -43,24 +36,7 @@ export function BuilderPiecePage({
                 onCellSelected={onClickPieceSchema}
             />
             <hr />
-            <div>
-                <div>Palette</div>
-                <MatrixColorCell
-                    testId={'builder-piece-palette'}
-                    colorScheme={paletteSchema}
-                    onCellSelected={onClickPaletteSchema}
-                    cellSize={32}
-                />
-                <div>
-                    <button
-                        data-testid={'builder-piece-palette-bucket-button'}
-                        onClick={onBucketClick}
-                    >
-                        {bucketButtonTitle}
-                    </button>
-                </div>
-            </div>
-            <hr />
+            <PaletteColor />
             <div>
                 <button
                     data-testid={'builder-piece-page-save-image-button'}
