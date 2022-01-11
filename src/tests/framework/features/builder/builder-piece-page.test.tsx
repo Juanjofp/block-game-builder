@@ -160,7 +160,7 @@ describe('Builder Piece Page should', () => {
         }
     });
 
-    it('toggle bucket when pressed again', async () => {
+    it('disable toggle bucket when pressed it again', async () => {
         const pieceColorSchema = [
             ['transparent', 'transparent', 'transparent'],
             ['transparent', 'transparent', 'transparent'],
