@@ -37,6 +37,7 @@ export function BuilderPiecePage({
             />
             <hr />
             <PaletteColor />
+            <hr />
             <div>
                 <button
                     data-testid={'builder-piece-page-save-image-button'}
