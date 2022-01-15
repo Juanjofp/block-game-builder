@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MatrixColorCell } from './matrix-color-cell';
+import { MatrixColorCell } from '../matrix-color-cell';
 import { useI18nService } from 'services/i18n/framework';
 import { useAppDispatch, useAppSelector } from 'framework/store/hooks';
 import {
@@ -7,6 +7,7 @@ import {
     thunkToggleBucketInPalette,
     thunkUpdateSelectedColorInPalette
 } from 'features/builder/framework/reducers';
+import './styles.css';
 
 export function useController() {
     const palette = useAppSelector(getPalette);
@@ -41,6 +42,7 @@ export function PaletteColor() {
             onClickSchema={selectColorFromPalette}
             onClickBucket={toggleBucketInPalette}
             bucketButtonTitle={t('builder_piece_page_bucket_button_title')}
+            isBucketSelected={palette.isBucketEnabled}
         />
     );
 }
@@ -50,13 +52,15 @@ export type PaletteProps = {
     onClickSchema: (color: string, position: [number, number]) => void;
     onClickBucket: () => void;
     bucketButtonTitle: string;
+    isBucketSelected: boolean;
 };
 export function PaletteColorView({
     title,
     schema,
     onClickSchema,
     onClickBucket,
-    bucketButtonTitle
+    bucketButtonTitle,
+    isBucketSelected
 }: PaletteProps) {
     return (
         <>
@@ -70,7 +74,14 @@ export function PaletteColorView({
                 />
                 <div>
                     <button
-                        data-testid={'builder-piece-palette-bucket-button'}
+                        className={`BucketButton ${
+                            isBucketSelected
+                                ? 'BucketButtonSelected'
+                                : 'BucketButtonNoSelected'
+                        }`}
+                        data-testid={`builder-piece-palette-bucket-button${
+                            isBucketSelected ? '-selected' : ''
+                        }`}
                         onClick={onClickBucket}
                     >
                         {bucketButtonTitle}

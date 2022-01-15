@@ -1,0 +1,12 @@
+.BucketButton {
+    padding: 20px;
+}
+.BucketButtonSelected {
+    background-color: darkgreen;
+    color: white;
+}
+
+.BucketButtonNoSelected {
+    background-color: grey;
+    color: rgba(74,60,75,0.49);
+}
