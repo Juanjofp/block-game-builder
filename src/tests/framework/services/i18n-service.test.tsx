@@ -71,7 +71,7 @@ describe('I18n should', () => {
         expect(screen.getByText(/^Edit.*\.$/)).toBeInTheDocument();
 
         const btnChangeLanguage = await screen.findByText('Change');
-        user.click(btnChangeLanguage);
+        await user.click(btnChangeLanguage);
 
         expect(await screen.findByText('test_message')).toBeInTheDocument();
         expect(screen.getByText(/^Edit.*\.$/)).toBeInTheDocument();

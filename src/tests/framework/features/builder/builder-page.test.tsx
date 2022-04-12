@@ -15,7 +15,10 @@ describe('Builder page should', () => {
         await screen.findByTestId('builder-piece-page-container');
     });
 
-    it.each([
+    // Intellij falla si se lanza este test solo debido a su sintaxis para crear el testname
+    // react-scripts.js test  --testNamePattern=^Builder page should navigate from \$init to \$target when click in piece tab button
+    // el patron es incorrecto y no encuentra los test, no sustituye $init y $target por sus valores
+    test.each([
         { init: 'scene', target: 'piece', history: ['/builder'] },
         { init: 'piece', target: 'scene', history: ['/builder/piece'] },
         { init: 'scene', target: 'character', history: ['/builder'] },
@@ -40,5 +43,3 @@ describe('Builder page should', () => {
         }
     );
 });
-
-export {};

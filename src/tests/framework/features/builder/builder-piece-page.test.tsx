@@ -56,7 +56,7 @@ describe('Builder Piece Page should', () => {
             'builder-piece-canvas-cell-0-0'
         );
 
-        user.click(firstCanvasCellButton);
+        await user.click(firstCanvasCellButton);
 
         expect(firstCanvasCellButton).toHaveStyle(
             `background-color: transparent`
@@ -75,7 +75,7 @@ describe('Builder Piece Page should', () => {
             'builder-piece-palette-cell-0-5'
         );
         const backgroundColor = firstColorButton.style.backgroundColor;
-        user.click(firstColorButton);
+        await user.click(firstColorButton);
 
         const firstCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-0-0'
@@ -83,8 +83,8 @@ describe('Builder Piece Page should', () => {
         const lastCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-7-7'
         );
-        user.click(firstCanvasCellButton);
-        user.click(lastCanvasCellButton);
+        await user.click(firstCanvasCellButton);
+        await user.click(lastCanvasCellButton);
 
         expect(firstCanvasCellButton).toHaveStyle(
             `background-color: ${backgroundColor}`
@@ -115,7 +115,7 @@ describe('Builder Piece Page should', () => {
         const saveImageButton = await screen.findByTestId(
             'builder-piece-page-save-image-button'
         );
-        user.click(saveImageButton);
+        await user.click(saveImageButton);
 
         await screen.findByTestId('builder-piece-page-image');
     });
@@ -138,17 +138,17 @@ describe('Builder Piece Page should', () => {
         const colorButton = await screen.findByTestId(
             'builder-piece-palette-cell-0-2'
         );
-        user.click(colorButton);
+        await user.click(colorButton);
 
         const bucketButton = await screen.findByTestId(
             'builder-piece-palette-bucket-button'
         );
-        user.click(bucketButton);
+        await user.click(bucketButton);
 
         const firstCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-0-0'
         );
-        user.click(firstCanvasCellButton);
+        await user.click(firstCanvasCellButton);
 
         const pieceCanvasCells = await screen.findAllByTestId(
             /builder-piece-canvas-cell-\d-\d/
@@ -179,18 +179,18 @@ describe('Builder Piece Page should', () => {
             'builder-piece-palette-cell-0-3'
         );
         const selectedColor = colorButton.style.backgroundColor;
-        user.click(colorButton);
+        await user.click(colorButton);
 
         const bucketButton = await screen.findByTestId(
             'builder-piece-palette-bucket-button'
         );
-        user.click(bucketButton);
-        user.click(bucketButton);
+        await user.click(bucketButton);
+        await user.click(bucketButton);
 
         const firstCanvasCellButton = await screen.findByTestId(
             'builder-piece-canvas-cell-0-0'
         );
-        user.click(firstCanvasCellButton);
+        await user.click(firstCanvasCellButton);
 
         expect(firstCanvasCellButton).toHaveStyle(
             'background-color: ' + selectedColor

@@ -32,7 +32,7 @@ describe('App should', () => {
             expect.any(String)
         );
 
-        user.click(await screen.findByTestId('app-error-reset-button'));
+        await user.click(await screen.findByTestId('app-error-reset-button'));
 
         expect(mockLogService.error).toHaveBeenCalledTimes(2);
         expect(mockLogService.info).toHaveBeenCalledTimes(1);
@@ -69,7 +69,7 @@ describe('App should', () => {
             expect.any(String)
         );
 
-        user.click(await screen.findByTestId('app-error-reset-button'));
+        await user.click(await screen.findByTestId('app-error-reset-button'));
 
         expect(mockLogService.error).toHaveBeenCalledTimes(2);
         expect(mockLogService.info).toHaveBeenCalledTimes(1);
